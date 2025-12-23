@@ -1,26 +1,5 @@
+<h3 class="h">Distribución por sexo</h3>
+
 <div class="chartWrap">
   <canvas #canvas></canvas>
-</div>
-
-<h4 class="subtitle">Listado con estado</h4>
-
-<div class="list">
-  @for (s of students; track trackById($index, s)) {
-
-  <div class="row">
-    <div class="name">{{ s.nombre }} {{ s.apellidos }}</div>
-    <div class="meta">Sexo: {{ s.sexo }}</div>
-    <div class="status">
-      @if (s.notaFinal < 5) {
-      <span class="badge bad">Suspendido</span>
-      } @else if (s.notaFinal > 5) {
-      <span class="badge ok">Aprobado</span>
-      } @else {
-      <span class="badge ok">(=5) Aprobado</span>
-      }
-    </div>
-  </div>
-  } @empty {
-  <p>No hay alumnos para mostrar.</p>
-  }
 </div>

@@ -2,12 +2,10 @@
 
 @if (students$ | async; as students) {
 
-<!-- Bloque 1: visible desde el inicio -->
+<!-- BLOQUE 1 -->
 <section class="block b1">
   <div class="container">
     <div class="card">
-      <h3>Resumen</h3>
-
       @defer {
       <app-resume-data [students]="students"></app-resume-data>
       } @placeholder {
@@ -17,31 +15,27 @@
   </div>
 </section>
 
-<!-- Bloque 2: carga al entrar en viewport -->
+<!-- BLOQUE 2: carga cuando entra en el viewport -->
 <section class="block b2">
   <div class="container">
     <div class="card">
-      <h3>Sexo</h3>
-
       @defer (on viewport) {
       <app-gender [students]="students"></app-gender>
       } @placeholder {
-      <p>Haz scroll para cargar bloque 2...</p>
+      <p>Haz scroll para cargar el bloque 2...</p>
       }
     </div>
   </div>
 </section>
 
-<!-- Bloque 3: carga al entrar en viewport -->
+<!-- BLOQUE 3: carga cuando entra en el viewport -->
 <section class="block b3">
   <div class="container">
     <div class="card">
-      <h3>Aprobados vs Suspendidos</h3>
-
       @defer (on viewport) {
       <app-general-results [students]="students"></app-general-results>
       } @placeholder {
-      <p>Haz scroll para cargar bloque 3...</p>
+      <p>Haz scroll para cargar el bloque 3...</p>
       }
     </div>
   </div>

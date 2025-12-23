@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   ViewChild,
 } from '@angular/core';
 import { Chart } from 'chart.js/auto';
@@ -13,7 +14,7 @@ import { StudentDTO } from '../../../core/models/student.dto';
   templateUrl: './resume-data.component.html',
   styleUrls: ['./resume-data.component.css'],
 })
-export class ResumeDataComponent implements AfterViewInit {
+export class ResumeDataComponent implements AfterViewInit, OnDestroy {
   @Input({ required: true }) students!: StudentDTO[];
   @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
 
@@ -21,12 +22,14 @@ export class ResumeDataComponent implements AfterViewInit {
   aprobados = 0;
   suspendidos = 0;
 
+  private chart?: Chart;
+
   ngAfterViewInit(): void {
     this.total = this.students.length;
     this.aprobados = this.students.filter((s) => s.notaFinal >= 5).length;
     this.suspendidos = this.students.filter((s) => s.notaFinal < 5).length;
 
-    new Chart(this.canvas.nativeElement, {
+    this.chart = new Chart(this.canvas.nativeElement, {
       type: 'bar',
       data: {
         labels: ['Total', 'Aprobados', 'Suspendidos'],
@@ -41,5 +44,7 @@ export class ResumeDataComponent implements AfterViewInit {
     });
   }
 
-  trackById = (_: number, s: StudentDTO) => s.id;
+  ngOnDestroy(): void {
+    this.chart?.destroy();
+  }
 }

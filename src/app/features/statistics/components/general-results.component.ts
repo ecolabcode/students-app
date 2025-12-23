@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   ViewChild,
 } from '@angular/core';
 import { Chart } from 'chart.js/auto';
@@ -13,28 +14,27 @@ import { StudentDTO } from '../../../core/models/student.dto';
   templateUrl: './general-results.component.html',
   styleUrls: ['./general-results.component.css'],
 })
-export class GeneralResultsComponent implements AfterViewInit {
+export class GeneralResultsComponent implements AfterViewInit, OnDestroy {
   @Input({ required: true }) students!: StudentDTO[];
   @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
 
-  aprobados = 0;
-  suspendidos = 0;
+  private chart?: Chart;
 
   ngAfterViewInit(): void {
-    this.aprobados = this.students.filter((s) => s.notaFinal >= 5).length;
-    this.suspendidos = this.students.filter((s) => s.notaFinal < 5).length;
+    const aprobados = this.students.filter((s) => s.notaFinal >= 5).length;
+    const suspendidos = this.students.filter((s) => s.notaFinal < 5).length;
 
-    new Chart(this.canvas.nativeElement, {
+    this.chart = new Chart(this.canvas.nativeElement, {
       type: 'doughnut',
       data: {
         labels: ['Aprobados', 'Suspendidos'],
-        datasets: [
-          { label: 'Resultados', data: [this.aprobados, this.suspendidos] },
-        ],
+        datasets: [{ label: 'Resultados', data: [aprobados, suspendidos] }],
       },
       options: { responsive: true, maintainAspectRatio: false },
     });
   }
 
-  trackById = (_: number, s: StudentDTO) => s.id;
+  ngOnDestroy(): void {
+    this.chart?.destroy();
+  }
 }
