@@ -1,0 +1,42 @@
+<div class="grid">
+  <div class="kpi">
+    <div class="kpi-number">{{ total }}</div>
+    <div class="kpi-label">Total alumnos</div>
+  </div>
+
+  <div class="kpi">
+    <div class="kpi-number">{{ aprobados }}</div>
+    <div class="kpi-label">Aprobados</div>
+  </div>
+
+  <div class="kpi">
+    <div class="kpi-number">{{ suspendidos }}</div>
+    <div class="kpi-label">Suspendidos</div>
+  </div>
+</div>
+
+<div class="chartWrap">
+  <canvas #canvas></canvas>
+</div>
+
+<h4 class="subtitle">Ejemplo de estado (como Home)</h4>
+
+<div class="list">
+  @for (s of students; track trackById($index, s)) {
+  <div class="row">
+    <div class="name">{{ s.nombre }} {{ s.apellidos }}</div>
+    <div class="score">Nota: {{ s.notaFinal }}</div>
+    <div class="status">
+      @if (s.notaFinal < 5) {
+      <span class="badge bad">Suspendido</span>
+      } @else if (s.notaFinal > 5) {
+      <span class="badge ok">Aprobado</span>
+      } @else {
+      <span class="badge ok">(=5) Aprobado</span>
+      }
+    </div>
+  </div>
+  } @empty {
+  <p>No hay alumnos para mostrar.</p>
+  }
+</div>

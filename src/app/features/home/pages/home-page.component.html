@@ -1,0 +1,43 @@
+<h2>Alumnos (CSV)</h2>
+
+@if (students$ | async; as students) {
+<table border="1" cellpadding="8" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellidos</th>
+      <th>Sexo</th>
+      <th>Nota</th>
+      <th>Faltas</th>
+      <th>Estado</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (s of students; track s.id) {
+    <tr>
+      <td>{{ s.nombre }}</td>
+      <td>{{ s.apellidos }}</td>
+      <td>{{ s.sexo }}</td>
+      <td>{{ s.notaFinal | number : "1.2-2" }}</td>
+      <td>{{ s.faltas }}</td>
+      <td>
+        @if (s.notaFinal < 5) {
+        <span>Suspendido</span>
+        } @else if (s.notaFinal > 5) {
+        <span>Aprobado</span>
+        } @else {
+        <span>(=5) Aprobado</span>
+        }
+      </td>
+    </tr>
+    } @empty {
+    <tr>
+      <td colspan="6">No hay alumnos en el listado.</td>
+    </tr>
+    }
+  </tbody>
+</table>
+} @else {
+<p>Cargando alumnos...</p>
+}

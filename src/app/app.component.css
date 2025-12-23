@@ -1,0 +1,16 @@
+.menu {
+  display: flex;
+  gap: 16px;
+  padding: 12px;
+  background: #f3f3f3;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+a {
+  text-decoration: none;
+  color: #333;
+}
+.active {
+  font-weight: 700;
+}

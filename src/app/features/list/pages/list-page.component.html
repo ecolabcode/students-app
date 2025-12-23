@@ -1,0 +1,16 @@
+<h2>Listado (Virtual Scroll)</h2>
+
+@if (students$ | async; as students) {
+<cdk-virtual-scroll-viewport class="viewport" itemSize="48">
+  <div class="row" *cdkVirtualFor="let s of students; trackBy: trackById">
+    <div class="cell">
+      <b>{{ s.nombre }} {{ s.apellidos }}</b>
+    </div>
+    <div class="cell">Sexo: {{ s.sexo }}</div>
+    <div class="cell">Nota: {{ s.notaFinal | number : "1.2-2" }}</div>
+    <div class="cell">Faltas: {{ s.faltas }}</div>
+  </div>
+</cdk-virtual-scroll-viewport>
+} @else {
+<p>Cargando...</p>
+}

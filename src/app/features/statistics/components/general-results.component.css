@@ -1,0 +1,56 @@
+.statsRow {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.pill {
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 999px;
+  padding: 8px 12px;
+}
+
+.chartWrap {
+  height: 260px;
+}
+
+.subtitle {
+  margin: 16px 0 10px;
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 1.5fr 0.7fr 0.8fr;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.bad {
+  background: #ffe6e6;
+}
+.ok {
+  background: #e9ffe6;
+}
+
+@media (max-width: 768px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

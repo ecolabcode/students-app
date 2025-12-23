@@ -1,0 +1,52 @@
+<h2 class="title">Statistics</h2>
+
+@if (students$ | async; as students) {
+
+<!-- Bloque 1: visible desde el inicio -->
+<section class="block b1">
+  <div class="container">
+    <div class="card">
+      <h3>Resumen</h3>
+
+      @defer {
+      <app-resume-data [students]="students"></app-resume-data>
+      } @placeholder {
+      <p>Cargando bloque 1...</p>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Bloque 2: carga al entrar en viewport -->
+<section class="block b2">
+  <div class="container">
+    <div class="card">
+      <h3>Sexo</h3>
+
+      @defer (on viewport) {
+      <app-gender [students]="students"></app-gender>
+      } @placeholder {
+      <p>Haz scroll para cargar bloque 2...</p>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Bloque 3: carga al entrar en viewport -->
+<section class="block b3">
+  <div class="container">
+    <div class="card">
+      <h3>Aprobados vs Suspendidos</h3>
+
+      @defer (on viewport) {
+      <app-general-results [students]="students"></app-general-results>
+      } @placeholder {
+      <p>Haz scroll para cargar bloque 3...</p>
+      }
+    </div>
+  </div>
+</section>
+
+} @else {
+<p class="loading">Cargando datos...</p>
+}
