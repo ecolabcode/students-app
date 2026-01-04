@@ -16,7 +16,7 @@ export class StudentsService {
   }
 
   private toNumber(value: string): number {
-    const n = parseFloat(value); // ✅ decimales con punto
+    const n = parseFloat(value);
     return Number.isFinite(n) ? n : 0;
   }
 
@@ -27,14 +27,13 @@ export class StudentsService {
         const parsed = this.papa.parse(csvText, {
           header: true,
           skipEmptyLines: true,
-          delimiter: ',', // ✅ coma
+          delimiter: ',',
           quoteChar: '"',
           transformHeader: (h) => h.replace('\uFEFF', '').trim(),
         });
 
         const rows = parsed.data as any[];
 
-        // 🔎 DEBUG CRÍTICO (déjalo una vez)
         console.log('FIELDS:', parsed.meta.fields);
         console.log('ROW 0:', rows[0]);
         console.log('Nota_Final ROW 0:', rows[0]?.['Nota_Final']);
@@ -45,7 +44,7 @@ export class StudentsService {
             nombre: this.pick(row, 'Nombre'),
             apellidos: this.pick(row, 'Apellidos'),
             sexo: this.pick(row, 'Sexo') as any,
-            notaFinal: this.toNumber(this.pick(row, 'Nota_Final')), // 🔴 AQUÍ
+            notaFinal: this.toNumber(this.pick(row, 'Nota_Final')),
             faltas: this.toNumber(this.pick(row, 'Faltas_Asistencia')),
           }))
           .filter((s) => s.id !== 0);
